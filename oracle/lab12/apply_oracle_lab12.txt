@@ -1,0 +1,824 @@
+SQL> 
+SQL> BEGIN
+  2   FOR i IN (SELECT null FROM user_tables WHERE table_name = 'CALENDAR') LOOP
+  3  	EXECUTE IMMEDIATE 'DROP TABLE calendar CASCADE CONSTRAINTS';
+  4   END LOOP;
+  5   FOR i IN (SELECT null FROM user_sequences WHERE sequence_name = 'CALENDAR_S1') LOOP
+  6  	EXECUTE IMMEDIATE 'DROP SEQUENCE calendar_s1';
+  7   END LOOP;
+  8  END;
+  9  /
+
+PL/SQL procedure successfully completed.
+
+SQL> 
+SQL> create table calendar
+  2  ( calendar_id		NUMBER
+  3  , calendar_name		VARCHAR2(10)	CONSTRAINT nn_calendar_1     NOT NULL
+  4  , calendar_short_name	VARCHAR2(3)	CONSTRAINT nn_calendar_2     NOT NULL
+  5  , start_date		DATE		CONSTRAINT nn_calendar_3     NOT NULL
+  6  , end_date 		DATE		CONSTRAINT nn_calendar_4     NOT NULL
+  7  , created_by		NUMBER		CONSTRAINT nn_calendar_5     NOT NULL
+  8  , creation_date		DATE		CONSTRAINT nn_calendar_6     NOT NULL
+  9  , last_updated_by		NUMBER		CONSTRAINT nn_calendar_7     NOT NULL
+ 10  , last_update_date 	DATE		CONSTRAINT nn_calendar_8     NOT NULL
+ 11  , CONSTRAINT pk_calendar_1 PRIMARY KEY(calendar_id)
+ 12  , CONSTRAINT fk_calendar_1 FOREIGN KEY(CREATED_BY) REFERENCES system_user(system_user_id)
+ 13  , CONSTRAINT fk_calendar_2 FOREIGN KEY(LAST_UPDATED_BY) REFERENCES system_user(system_user_id));
+
+Table created.
+
+SQL> 
+SQL> -- ----------------------------------------------------------------------
+SQL> -- Step 2
+SQL> -- [3 points] seed calendar
+SQL> -- ----------------------------------------------------------------------
+SQL> CREATE SEQUENCE calendar_s1;
+
+Sequence created.
+
+SQL> 
+SQL> INSERT INTO calendar
+  2  ( calendar_id
+  3  , calendar_name
+  4  , calendar_short_name
+  5  , start_date
+  6  , end_date
+  7  , created_by
+  8  , creation_date
+  9  , last_updated_by
+ 10  , last_update_date)
+ 11  VALUES
+ 12  ( calendar_s1.nextval
+ 13  , 'January'
+ 14  , 'JAN'
+ 15  , '01-JAN-2009'
+ 16  , '31-JAN-2009'
+ 17  , 1
+ 18  , sysdate
+ 19  , 1
+ 20  , sysdate);
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO calendar
+  2  ( calendar_id
+  3  , calendar_name
+  4  , calendar_short_name
+  5  , start_date
+  6  , end_date
+  7  , created_by
+  8  , creation_date
+  9  , last_updated_by
+ 10  , last_update_date)
+ 11  VALUES
+ 12  ( calendar_s1.nextval
+ 13  , 'February'
+ 14  , 'FEB'
+ 15  , '01-FEB-2009'
+ 16  , '28-FEB-2009'
+ 17  , 1
+ 18  , sysdate
+ 19  , 1
+ 20  , sysdate);
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO calendar
+  2  ( calendar_id
+  3  , calendar_name
+  4  , calendar_short_name
+  5  , start_date
+  6  , end_date
+  7  , created_by
+  8  , creation_date
+  9  , last_updated_by
+ 10  , last_update_date)
+ 11  VALUES
+ 12  ( calendar_s1.nextval
+ 13  , 'March'
+ 14  , 'MAR'
+ 15  , '01-MAR-2009'
+ 16  , '31-MAR-2009'
+ 17  , 1
+ 18  , sysdate
+ 19  , 1
+ 20  , sysdate);
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO calendar
+  2  ( calendar_id
+  3  , calendar_name
+  4  , calendar_short_name
+  5  , start_date
+  6  , end_date
+  7  , created_by
+  8  , creation_date
+  9  , last_updated_by
+ 10  , last_update_date)
+ 11  VALUES
+ 12  ( calendar_s1.nextval
+ 13  , 'April'
+ 14  , 'APR'
+ 15  , '01-APR-2009'
+ 16  , '30-APR-2009'
+ 17  , 1
+ 18  , sysdate
+ 19  , 1
+ 20  , sysdate);
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO calendar
+  2  ( calendar_id
+  3  , calendar_name
+  4  , calendar_short_name
+  5  , start_date
+  6  , end_date
+  7  , created_by
+  8  , creation_date
+  9  , last_updated_by
+ 10  , last_update_date)
+ 11  VALUES
+ 12  ( calendar_s1.nextval
+ 13  , 'May'
+ 14  , 'MAY'
+ 15  , '01-MAY-2009'
+ 16  , '31-MAY-2009'
+ 17  , 1
+ 18  , sysdate
+ 19  , 1
+ 20  , sysdate);
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO calendar
+  2  ( calendar_id
+  3  , calendar_name
+  4  , calendar_short_name
+  5  , start_date
+  6  , end_date
+  7  , created_by
+  8  , creation_date
+  9  , last_updated_by
+ 10  , last_update_date)
+ 11  VALUES
+ 12  ( calendar_s1.nextval
+ 13  , 'June'
+ 14  , 'JUN'
+ 15  , '01-JUN-2009'
+ 16  , '30-JUN-2009'
+ 17  , 1
+ 18  , sysdate
+ 19  , 1
+ 20  , sysdate);
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO calendar
+  2  ( calendar_id
+  3  , calendar_name
+  4  , calendar_short_name
+  5  , start_date
+  6  , end_date
+  7  , created_by
+  8  , creation_date
+  9  , last_updated_by
+ 10  , last_update_date)
+ 11  VALUES
+ 12  ( calendar_s1.nextval
+ 13  , 'July'
+ 14  , 'JUL'
+ 15  , '01-JUL-2009'
+ 16  , '31-JUL-2009'
+ 17  , 1
+ 18  , sysdate
+ 19  , 1
+ 20  , sysdate);
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO calendar
+  2  ( calendar_id
+  3  , calendar_name
+  4  , calendar_short_name
+  5  , start_date
+  6  , end_date
+  7  , created_by
+  8  , creation_date
+  9  , last_updated_by
+ 10  , last_update_date)
+ 11  VALUES
+ 12  ( calendar_s1.nextval
+ 13  , 'August'
+ 14  , 'AUG'
+ 15  , '01-AUG-2009'
+ 16  , '31-AUG-2009'
+ 17  , 1
+ 18  , sysdate
+ 19  , 1
+ 20  , sysdate);
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO calendar
+  2  ( calendar_id
+  3  , calendar_name
+  4  , calendar_short_name
+  5  , start_date
+  6  , end_date
+  7  , created_by
+  8  , creation_date
+  9  , last_updated_by
+ 10  , last_update_date)
+ 11  VALUES
+ 12  ( calendar_s1.nextval
+ 13  , 'September'
+ 14  , 'SEP'
+ 15  , '01-SEP-2009'
+ 16  , '30-SEP-2009'
+ 17  , 1
+ 18  , sysdate
+ 19  , 1
+ 20  , sysdate);
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO calendar
+  2  ( calendar_id
+  3  , calendar_name
+  4  , calendar_short_name
+  5  , start_date
+  6  , end_date
+  7  , created_by
+  8  , creation_date
+  9  , last_updated_by
+ 10  , last_update_date)
+ 11  VALUES
+ 12  ( calendar_s1.nextval
+ 13  , 'October'
+ 14  , 'OCT'
+ 15  , '01-OCT-2009'
+ 16  , '31-OCT-2009'
+ 17  , 1
+ 18  , sysdate
+ 19  , 1
+ 20  , sysdate);
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO calendar
+  2  ( calendar_id
+  3  , calendar_name
+  4  , calendar_short_name
+  5  , start_date
+  6  , end_date
+  7  , created_by
+  8  , creation_date
+  9  , last_updated_by
+ 10  , last_update_date)
+ 11  VALUES
+ 12  ( calendar_s1.nextval
+ 13  , 'November'
+ 14  , 'NOV'
+ 15  , '01-NOV-2009'
+ 16  , '30-NOV-2009'
+ 17  , 1
+ 18  , sysdate
+ 19  , 1
+ 20  , sysdate);
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO calendar
+  2  ( calendar_id
+  3  , calendar_name
+  4  , calendar_short_name
+  5  , start_date
+  6  , end_date
+  7  , created_by
+  8  , creation_date
+  9  , last_updated_by
+ 10  , last_update_date)
+ 11  VALUES
+ 12  ( calendar_s1.nextval
+ 13  , 'December'
+ 14  , 'DEC'
+ 15  , '01-DEC-2009'
+ 16  , '31-DEC-2009'
+ 17  , 1
+ 18  , sysdate
+ 19  , 1
+ 20  , sysdate);
+
+1 row created.
+
+SQL> 
+SQL> BEGIN
+  2   FOR i IN (SELECT null FROM user_tables WHERE table_name = 'TRANSACTION_REVERSAL') LOOP
+  3  	EXECUTE IMMEDIATE 'DROP TABLE transaction_reversal CASCADE CONSTRAINTS';
+  4   END LOOP;
+  5   FOR i IN (SELECT null FROM user_sequences WHERE sequence_name = 'TRANSACTION_REVERSAL_S1') LOOP
+  6  	EXECUTE IMMEDIATE 'DROP SEQUENCE transaction_reversal_s1';
+  7   END LOOP;
+  8  END;
+  9  /
+
+PL/SQL procedure successfully completed.
+
+SQL> 
+SQL> create table transaction_reversal
+  2  	( transaction_id	  number
+  3  	, transaction_account	  varchar2(15)
+  4  	, transaction_type	  number
+  5  	, transaction_date	  date
+  6  	, transaction_amount	  number
+  7  	, rental_id		  number
+  8  	, payment_method_type	  number
+  9  	, payment_account_number  varchar2(19)
+ 10  	, created_by		  number
+ 11  	, creation_date 	  date
+ 12  	, last_updated_by	  number
+ 13  	, last_update_date	  date
+ 14  	)
+ 15  	ORGANIZATION EXTERNAL
+ 16  	( TYPE ORACLE_LOADER
+ 17  	  DEFAULT DIRECTORY upload
+ 18  	  ACCESS PARAMETERS
+ 19  	  ( RECORDS DELIMITED BY NEWLINE CHARACTERSET US7ASCII
+ 20  	  BADFILE     'UPLOAD':'transaction_upload2.bad'
+ 21  	  DISCARDFILE 'UPLOAD':'transaction_upload2.dis'
+ 22  	  LOGFILE     'UPLOAD':'transaction_upload2.log'
+ 23  	  FIELDS TERMINATED BY ','
+ 24  	  OPTIONALLY ENCLOSED BY "'"
+ 25  	  MISSING FIELD VALUES ARE NULL     )
+ 26  	  LOCATION
+ 27  	   ( 'transaction_upload2.csv'
+ 28  	   )
+ 29  	)
+ 30    REJECT LIMIT UNLIMITED;
+
+Table created.
+
+SQL> 
+SQL> -- '
+SQL> 
+SQL> -- Move the data from TRANSACTION_REVERSAL to TRANSACTION.
+SQL> INSERT INTO TRANSACTION
+  2  (SELECT
+  3    transaction_s1.nextval
+  4  , transaction_account
+  5  , transaction_type
+  6  , transaction_date
+  7  , transaction_amount
+  8  , rental_id
+  9  , payment_method_type
+ 10  , payment_account_number
+ 11  , created_by
+ 12  , creation_date
+ 13  , last_updated_by
+ 14  , last_update_date
+ 15  FROM transaction_reversal WHERE transaction_id IS NOT NULL);
+
+1170 rows created.
+
+SQL> 
+SQL> COLUMN "Debit Transactions"  FORMAT A20
+SQL> COLUMN "Credit Transactions" FORMAT A20
+SQL> COLUMN "All Transactions"	  FORMAT A20
+SQL> 
+SQL> -- Check current contents of the model.
+SQL> SELECT 'SELECT record counts' AS "Statement" FROM dual;
+
+Statement                                                                       
+--------------------                                                            
+SELECT record counts                                                            
+
+1 row selected.
+
+SQL> SELECT   LPAD(TO_CHAR(c1.transaction_count,'99,999'),19,' ') AS "Debit Transactions"
+  2  ,	      LPAD(TO_CHAR(c2.transaction_count,'99,999'),19,' ') AS "Credit Transactions"
+  3  ,	      LPAD(TO_CHAR(c3.transaction_count,'99,999'),19,' ') AS "All Transactions"
+  4  FROM    (SELECT COUNT(*) AS transaction_count FROM TRANSACTION WHERE transaction_account = '111-111-111-111') c1 CROSS JOIN
+  5  	     (SELECT COUNT(*) AS transaction_count FROM TRANSACTION WHERE transaction_account = '222-222-222-222') c2 CROSS JOIN
+  6  	     (SELECT COUNT(*) AS transaction_count FROM TRANSACTION) c3;
+
+Debit Transactions   Credit Transactions  All Transactions                      
+-------------------- -------------------- --------------------                  
+              4,681                1,170                5,851                   
+
+1 row selected.
+
+SQL> 
+SQL> COLUMN "Transaction" FORMAT A12
+SQL> COLUMN "JAN" FORMAT A10
+SQL> COLUMN "FEB" FORMAT A10
+SQL> COLUMN "MAR" FORMAT A10
+SQL> COLUMN "FQ1" FORMAT A10
+SQL> COLUMN "APR" FORMAT A10
+SQL> COLUMN "MAY" FORMAT A10
+SQL> COLUMN "JUN" FORMAT A10
+SQL> COLUMN "FQ2" FORMAT A10
+SQL> COLUMN "JUL" FORMAT A10
+SQL> COLUMN "AUG" FORMAT A10
+SQL> COLUMN "SEP" FORMAT A10
+SQL> COLUMN "FQ3" FORMAT A10
+SQL> COLUMN "OCT" FORMAT A10
+SQL> COLUMN "NOV" FORMAT A10
+SQL> COLUMN "DEC" FORMAT A10
+SQL> COLUMN "FQ4" FORMAT A10
+SQL> COLUMN "YTD" FORMAT A10
+SQL> 
+SQL> SELECT  CASE
+  2  	       WHEN t.transaction_account = '111-111-111-111' THEN 'Debit'
+  3  	       WHEN t.transaction_account = '222-222-222-222' THEN 'Credit'
+  4  	     END AS "Transaction"
+  5  ,	 LPAD(TO_CHAR
+  6  	    (SUM(CASE
+  7  		   WHEN EXTRACT(MONTH FROM transaction_date) = 1 AND
+  8  			EXTRACT(YEAR FROM transaction_date) = 2009 THEN
+  9  		     CASE
+ 10  		       WHEN cl.common_lookup_type = 'DEBIT'
+ 11  		       THEN t.transaction_amount
+ 12  		       ELSE t.transaction_amount * -1
+ 13  		     END
+ 14  		 END),'99,999.00'),10,' ') AS "Jan"
+ 15  ,	 LPAD(TO_CHAR
+ 16  	    (SUM(CASE
+ 17  		   WHEN EXTRACT(MONTH FROM transaction_date) = 2 AND
+ 18  			EXTRACT(YEAR FROM transaction_date) = 2009 THEN
+ 19  		     CASE
+ 20  		       WHEN cl.common_lookup_type = 'DEBIT'
+ 21  		       THEN t.transaction_amount
+ 22  		       ELSE t.transaction_amount * -1
+ 23  		     END
+ 24  		 END),'99,999.00'),10,' ') AS "Feb"
+ 25  ,	 LPAD(TO_CHAR
+ 26  	    (SUM(CASE
+ 27  		   WHEN EXTRACT(MONTH FROM transaction_date) = 3 AND
+ 28  			EXTRACT(YEAR FROM transaction_date) = 2009 THEN
+ 29  		     CASE
+ 30  		       WHEN cl.common_lookup_type = 'DEBIT'
+ 31  		       THEN t.transaction_amount
+ 32  		       ELSE t.transaction_amount * -1
+ 33  		     END
+ 34  		 END),'99,999.00'),10,' ') AS "Mar"
+ 35  ,	 LPAD(TO_CHAR
+ 36  	    (SUM(CASE
+ 37  		   WHEN EXTRACT(MONTH FROM transaction_date) IN (1, 2, 3) AND
+ 38  			EXTRACT(YEAR FROM transaction_date) = 2009 THEN
+ 39  		     CASE
+ 40  		       WHEN cl.common_lookup_type = 'DEBIT'
+ 41  		       THEN t.transaction_amount
+ 42  		       ELSE t.transaction_amount * -1
+ 43  		     END
+ 44  		 END),'99,999.00'),10,' ') AS "FQ1"
+ 45  ,	      LPAD(TO_CHAR
+ 46  	    (SUM(CASE
+ 47  		   WHEN EXTRACT(MONTH FROM transaction_date) = 4 AND
+ 48  			EXTRACT(YEAR FROM transaction_date) = 2009 THEN
+ 49  		     CASE
+ 50  		       WHEN cl.common_lookup_type = 'DEBIT'
+ 51  		       THEN t.transaction_amount
+ 52  		       ELSE t.transaction_amount * -1
+ 53  		     END
+ 54  		 END),'99,999.00'),10,' ') AS "Apr"
+ 55  ,	 LPAD(TO_CHAR
+ 56  	    (SUM(CASE
+ 57  		   WHEN EXTRACT(MONTH FROM transaction_date) = 5 AND
+ 58  			EXTRACT(YEAR FROM transaction_date) = 2009 THEN
+ 59  		     CASE
+ 60  		       WHEN cl.common_lookup_type = 'DEBIT'
+ 61  		       THEN t.transaction_amount
+ 62  		       ELSE t.transaction_amount * -1
+ 63  		     END
+ 64  		 END),'99,999.00'),10,' ') AS "May"
+ 65  ,	 LPAD(TO_CHAR
+ 66  	    (SUM(CASE
+ 67  		   WHEN EXTRACT(MONTH FROM transaction_date) = 6 AND
+ 68  			EXTRACT(YEAR FROM transaction_date) = 2009 THEN
+ 69  		     CASE
+ 70  		       WHEN cl.common_lookup_type = 'DEBIT'
+ 71  		       THEN t.transaction_amount
+ 72  		       ELSE t.transaction_amount * -1
+ 73  		     END
+ 74  		 END),'99,999.00'),10,' ') AS "Jun"
+ 75  ,	 LPAD(TO_CHAR
+ 76  	    (SUM(CASE
+ 77  		   WHEN EXTRACT(MONTH FROM transaction_date) IN (4, 5, 6) AND
+ 78  			EXTRACT(YEAR FROM transaction_date) = 2009 THEN
+ 79  		     CASE
+ 80  		       WHEN cl.common_lookup_type = 'DEBIT'
+ 81  		       THEN t.transaction_amount
+ 82  		       ELSE t.transaction_amount * -1
+ 83  		     END
+ 84  		 END),'99,999.00'),10,' ') AS "FQ2"
+ 85  ,	 LPAD(TO_CHAR
+ 86  	    (SUM(CASE
+ 87  		   WHEN EXTRACT(MONTH FROM transaction_date) = 7 AND
+ 88  			EXTRACT(YEAR FROM transaction_date) = 2009 THEN
+ 89  		     CASE
+ 90  		       WHEN cl.common_lookup_type = 'DEBIT'
+ 91  		       THEN t.transaction_amount
+ 92  		       ELSE t.transaction_amount * -1
+ 93  		     END
+ 94  		 END),'99,999.00'),10,' ') AS "Jul"
+ 95  ,	      LPAD(TO_CHAR
+ 96  	    (SUM(CASE
+ 97  		   WHEN EXTRACT(MONTH FROM transaction_date) = 8 AND
+ 98  			EXTRACT(YEAR FROM transaction_date) = 2009 THEN
+ 99  		     CASE
+100  		       WHEN cl.common_lookup_type = 'DEBIT'
+101  		       THEN t.transaction_amount
+102  		       ELSE t.transaction_amount * -1
+103  		     END
+104  		 END),'99,999.00'),10,' ') AS "Aug"
+105  ,	 LPAD(TO_CHAR
+106  	    (SUM(CASE
+107  		   WHEN EXTRACT(MONTH FROM transaction_date) = 9 AND
+108  			EXTRACT(YEAR FROM transaction_date) = 2009 THEN
+109  		     CASE
+110  		       WHEN cl.common_lookup_type = 'DEBIT'
+111  		       THEN t.transaction_amount
+112  		       ELSE t.transaction_amount * -1
+113  		     END
+114  		 END),'99,999.00'),10,' ') AS "Sep"
+115  ,	 LPAD(TO_CHAR
+116  	    (SUM(CASE
+117  		   WHEN EXTRACT(MONTH FROM transaction_date) IN (7, 8, 9) AND
+118  			EXTRACT(YEAR FROM transaction_date) = 2009 THEN
+119  		     CASE
+120  		       WHEN cl.common_lookup_type = 'DEBIT'
+121  		       THEN t.transaction_amount
+122  		       ELSE t.transaction_amount * -1
+123  		     END
+124  		 END),'99,999.00'),10,' ') AS "FQ3"
+125  ,	 LPAD(TO_CHAR
+126  	    (SUM(CASE
+127  		   WHEN EXTRACT(MONTH FROM transaction_date) = 10 AND
+128  			EXTRACT(YEAR FROM transaction_date) = 2009 THEN
+129  		     CASE
+130  		       WHEN cl.common_lookup_type = 'DEBIT'
+131  		       THEN t.transaction_amount
+132  		       ELSE t.transaction_amount * -1
+133  		     END
+134  		 END),'99,999.00'),10,' ') AS "OCT"
+135  ,	 LPAD(TO_CHAR
+136  	    (SUM(CASE
+137  		   WHEN EXTRACT(MONTH FROM transaction_date) = 11 AND
+138  			EXTRACT(YEAR FROM transaction_date) = 2009 THEN
+139  		     CASE
+140  		       WHEN cl.common_lookup_type = 'DEBIT'
+141  		       THEN t.transaction_amount
+142  		       ELSE t.transaction_amount * -1
+143  		     END
+144  		 END),'99,999.00'),10,' ') AS "Nov"
+145  ,	 LPAD(TO_CHAR
+146  	    (SUM(CASE
+147  		   WHEN EXTRACT(MONTH FROM transaction_date) = 12 AND
+148  			EXTRACT(YEAR FROM transaction_date) = 2009 THEN
+149  		     CASE
+150  		       WHEN cl.common_lookup_type = 'DEBIT'
+151  		       THEN t.transaction_amount
+152  		       ELSE t.transaction_amount * -1
+153  		     END
+154  		 END),'99,999.00'),10,' ') AS "DEC"
+155  ,	 LPAD(TO_CHAR
+156  	    (SUM(CASE
+157  		   WHEN EXTRACT(MONTH FROM transaction_date) IN (10, 11, 12) AND
+158  			EXTRACT(YEAR FROM transaction_date) = 2009 THEN
+159  		     CASE
+160  		       WHEN cl.common_lookup_type = 'DEBIT'
+161  		       THEN t.transaction_amount
+162  		       ELSE t.transaction_amount * -1
+163  		     END
+164  		 END),'99,999.00'),10,' ') AS "FQ4"
+165  ,	 LPAD(TO_CHAR
+166  	    (SUM(CASE
+167  		   WHEN EXTRACT(YEAR FROM transaction_date) = 2009 THEN
+168  		     CASE
+169  		       WHEN cl.common_lookup_type = 'DEBIT'
+170  		       THEN t.transaction_amount
+171  		       ELSE t.transaction_amount * -1
+172  		     END
+173  		 END),'99,999.00'),10,' ') AS "YTD"
+174  FROM     TRANSACTION t INNER JOIN common_lookup cl
+175  ON       t.transaction_type = cl.common_lookup_id
+176  WHERE    cl.common_lookup_table = 'TRANSACTION'
+177  AND      cl.common_lookup_column = 'TRANSACTION_TYPE'
+178  GROUP BY CASE
+179  	       WHEN t.transaction_account = '111-111-111-111' THEN 'Debit'
+180  	       WHEN t.transaction_account = '222-222-222-222' THEN 'Credit'
+181  	     END
+182  UNION ALL
+183  SELECT 'Total' as "Transaction"
+184  ,	 LPAD(TO_CHAR
+185  	    (SUM(CASE
+186  		   WHEN EXTRACT(MONTH FROM transaction_date) = 1 AND
+187  			EXTRACT(YEAR FROM transaction_date) = 2009 THEN
+188  		     CASE
+189  		       WHEN cl.common_lookup_type = 'DEBIT'
+190  		       THEN t.transaction_amount
+191  		       ELSE t.transaction_amount * -1
+192  		     END
+193  		 END),'99,999.00'),10,' ') AS "Jan"
+194  ,	 LPAD(TO_CHAR
+195  	    (SUM(CASE
+196  		   WHEN EXTRACT(MONTH FROM transaction_date) = 2 AND
+197  			EXTRACT(YEAR FROM transaction_date) = 2009 THEN
+198  		     CASE
+199  		       WHEN cl.common_lookup_type = 'DEBIT'
+200  		       THEN t.transaction_amount
+201  		       ELSE t.transaction_amount * -1
+202  		     END
+203  		 END),'99,999.00'),10,' ') AS "Feb"
+204  ,	 LPAD(TO_CHAR
+205  	    (SUM(CASE
+206  		   WHEN EXTRACT(MONTH FROM transaction_date) = 3 AND
+207  			EXTRACT(YEAR FROM transaction_date) = 2009 THEN
+208  		     CASE
+209  		       WHEN cl.common_lookup_type = 'DEBIT'
+210  		       THEN t.transaction_amount
+211  		       ELSE t.transaction_amount * -1
+212  		     END
+213  		 END),'99,999.00'),10,' ') AS "Mar"
+214  ,	 LPAD(TO_CHAR
+215  	    (SUM(CASE
+216  		   WHEN EXTRACT(MONTH FROM transaction_date) IN (1, 2, 3) AND
+217  			EXTRACT(YEAR FROM transaction_date) = 2009 THEN
+218  		     CASE
+219  		       WHEN cl.common_lookup_type = 'DEBIT'
+220  		       THEN t.transaction_amount
+221  		       ELSE t.transaction_amount * -1
+222  		     END
+223  		 END),'99,999.00'),10,' ') AS "FQ1"
+224  ,	      LPAD(TO_CHAR
+225  	    (SUM(CASE
+226  		   WHEN EXTRACT(MONTH FROM transaction_date) = 4 AND
+227  			EXTRACT(YEAR FROM transaction_date) = 2009 THEN
+228  		     CASE
+229  		       WHEN cl.common_lookup_type = 'DEBIT'
+230  		       THEN t.transaction_amount
+231  		       ELSE t.transaction_amount * -1
+232  		     END
+233  		 END),'99,999.00'),10,' ') AS "Apr"
+234  ,	 LPAD(TO_CHAR
+235  	    (SUM(CASE
+236  		   WHEN EXTRACT(MONTH FROM transaction_date) = 5 AND
+237  			EXTRACT(YEAR FROM transaction_date) = 2009 THEN
+238  		     CASE
+239  		       WHEN cl.common_lookup_type = 'DEBIT'
+240  		       THEN t.transaction_amount
+241  		       ELSE t.transaction_amount * -1
+242  		     END
+243  		 END),'99,999.00'),10,' ') AS "May"
+244  ,	 LPAD(TO_CHAR
+245  	    (SUM(CASE
+246  		   WHEN EXTRACT(MONTH FROM transaction_date) = 6 AND
+247  			EXTRACT(YEAR FROM transaction_date) = 2009 THEN
+248  		     CASE
+249  		       WHEN cl.common_lookup_type = 'DEBIT'
+250  		       THEN t.transaction_amount
+251  		       ELSE t.transaction_amount * -1
+252  		     END
+253  		 END),'99,999.00'),10,' ') AS "Jun"
+254  ,	 LPAD(TO_CHAR
+255  	    (SUM(CASE
+256  		   WHEN EXTRACT(MONTH FROM transaction_date) IN (4, 5, 6) AND
+257  			EXTRACT(YEAR FROM transaction_date) = 2009 THEN
+258  		     CASE
+259  		       WHEN cl.common_lookup_type = 'DEBIT'
+260  		       THEN t.transaction_amount
+261  		       ELSE t.transaction_amount * -1
+262  		     END
+263  		 END),'99,999.00'),10,' ') AS "FQ2"
+264  ,	 LPAD(TO_CHAR
+265  	    (SUM(CASE
+266  		   WHEN EXTRACT(MONTH FROM transaction_date) = 7 AND
+267  			EXTRACT(YEAR FROM transaction_date) = 2009 THEN
+268  		     CASE
+269  		       WHEN cl.common_lookup_type = 'DEBIT'
+270  		       THEN t.transaction_amount
+271  		       ELSE t.transaction_amount * -1
+272  		     END
+273  		 END),'99,999.00'),10,' ') AS "Jul"
+274  ,	      LPAD(TO_CHAR
+275  	    (SUM(CASE
+276  		   WHEN EXTRACT(MONTH FROM transaction_date) = 8 AND
+277  			EXTRACT(YEAR FROM transaction_date) = 2009 THEN
+278  		     CASE
+279  		       WHEN cl.common_lookup_type = 'DEBIT'
+280  		       THEN t.transaction_amount
+281  		       ELSE t.transaction_amount * -1
+282  		     END
+283  		 END),'99,999.00'),10,' ') AS "Aug"
+284  ,	 LPAD(TO_CHAR
+285  	    (SUM(CASE
+286  		   WHEN EXTRACT(MONTH FROM transaction_date) = 9 AND
+287  			EXTRACT(YEAR FROM transaction_date) = 2009 THEN
+288  		     CASE
+289  		       WHEN cl.common_lookup_type = 'DEBIT'
+290  		       THEN t.transaction_amount
+291  		       ELSE t.transaction_amount * -1
+292  		     END
+293  		 END),'99,999.00'),10,' ') AS "Sep"
+294  ,	 LPAD(TO_CHAR
+295  	    (SUM(CASE
+296  		   WHEN EXTRACT(MONTH FROM transaction_date) IN (7, 8, 9) AND
+297  			EXTRACT(YEAR FROM transaction_date) = 2009 THEN
+298  		     CASE
+299  		       WHEN cl.common_lookup_type = 'DEBIT'
+300  		       THEN t.transaction_amount
+301  		       ELSE t.transaction_amount * -1
+302  		     END
+303  		 END),'99,999.00'),10,' ') AS "FQ3"
+304  ,	 LPAD(TO_CHAR
+305  	    (SUM(CASE
+306  		   WHEN EXTRACT(MONTH FROM transaction_date) = 10 AND
+307  			EXTRACT(YEAR FROM transaction_date) = 2009 THEN
+308  		     CASE
+309  		       WHEN cl.common_lookup_type = 'DEBIT'
+310  		       THEN t.transaction_amount
+311  		       ELSE t.transaction_amount * -1
+312  		     END
+313  		 END),'99,999.00'),10,' ') AS "OCT"
+314  ,	 LPAD(TO_CHAR
+315  	    (SUM(CASE
+316  		   WHEN EXTRACT(MONTH FROM transaction_date) = 11 AND
+317  			EXTRACT(YEAR FROM transaction_date) = 2009 THEN
+318  		     CASE
+319  		       WHEN cl.common_lookup_type = 'DEBIT'
+320  		       THEN t.transaction_amount
+321  		       ELSE t.transaction_amount * -1
+322  		     END
+323  		 END),'99,999.00'),10,' ') AS "Nov"
+324  ,	 LPAD(TO_CHAR
+325  	    (SUM(CASE
+326  		   WHEN EXTRACT(MONTH FROM transaction_date) = 12 AND
+327  			EXTRACT(YEAR FROM transaction_date) = 2009 THEN
+328  		     CASE
+329  		       WHEN cl.common_lookup_type = 'DEBIT'
+330  		       THEN t.transaction_amount
+331  		       ELSE t.transaction_amount * -1
+332  		     END
+333  		 END),'99,999.00'),10,' ') AS "DEC"
+334  ,	 LPAD(TO_CHAR
+335  	    (SUM(CASE
+336  		   WHEN EXTRACT(MONTH FROM transaction_date) IN (10, 11, 12) AND
+337  			EXTRACT(YEAR FROM transaction_date) = 2009 THEN
+338  		     CASE
+339  		       WHEN cl.common_lookup_type = 'DEBIT'
+340  		       THEN t.transaction_amount
+341  		       ELSE t.transaction_amount * -1
+342  		     END
+343  		 END),'99,999.00'),10,' ') AS "FQ4"
+344  ,	 LPAD(TO_CHAR
+345  	    (SUM(CASE
+346  		   WHEN EXTRACT(YEAR FROM transaction_date) = 2009 THEN
+347  		     CASE
+348  		       WHEN cl.common_lookup_type = 'DEBIT'
+349  		       THEN t.transaction_amount
+350  		       ELSE t.transaction_amount * -1
+351  		     END
+352  		 END),'99,999.00'),10,' ') AS "YTD"
+353  FROM     TRANSACTION t INNER JOIN common_lookup cl
+354  ON       t.transaction_type = cl.common_lookup_id
+355  WHERE    cl.common_lookup_table = 'TRANSACTION'
+356  AND      cl.common_lookup_column = 'TRANSACTION_TYPE';
+
+Transaction  Jan        Feb        Mar        FQ1        Apr        May         
+------------ ---------- ---------- ---------- ---------- ---------- ----------  
+Jun        FQ2        Jul        Aug        Sep        FQ3        OCT           
+---------- ---------- ---------- ---------- ---------- ---------- ----------    
+Nov        DEC        FQ4        YTD                                            
+---------- ---------- ---------- ----------                                     
+Debit          2,671.20   4,270.74   5,371.02  12,312.96   4,932.18   2,216.46  
+  1,208.40   8,357.04   2,404.08   2,241.90   2,197.38   6,843.36   3,275.40    
+  3,125.94   2,340.48   8,741.82  36,255.18                                     
+                                                                                
+Credit          -690.06  -1,055.76  -1,405.56  -3,151.38  -1,192.50    -553.32  
+   -298.92  -2,044.74    -604.20    -553.32    -581.94  -1,739.46    -874.50    
+   -833.16    -601.02  -2,308.68  -9,244.26                                     
+                                                                                
+Total          1,981.14   3,214.98   3,965.46   9,161.58   3,739.68   1,663.14  
+    909.48   6,312.30   1,799.88   1,688.58   1,615.44   5,103.90   2,400.90    
+  2,292.78   1,739.46   6,433.14  27,010.92                                     
+                                                                                
+
+3 rows selected.
+
+SQL> 
+SQL> 
+SQL> SPOOL OFF

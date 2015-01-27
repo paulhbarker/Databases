@@ -1,0 +1,14 @@
+SQL> 
+SQL> @/home/student/Data/cit225/oracle/lab2/create_oracle_store.sql
+SQL> -- ------------------------------------------------------------------
+SQL> --  Program Name:	 create_oracle_store.sql
+SQL> --  Lab Assignment: Lab #2
+SQL> --  Program Author: Michael McLaughlin
+SQL> --  Creation Date:  02-Mar-2010
+SQL> -- ------------------------------------------------------------------
+SQL> -- This creates tables, sequences, indexes, and constraints necessary
+SQL> -- to begin lesson #3. Demonstrates proper process and syntax.
+SQL> -- ------------------------------------------------------------------
+SQL> 
+SQL> -- Open log file.
+SQL> SPOOL create_oracle_store.log

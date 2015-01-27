@@ -1,0 +1,302 @@
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+3 rows updated.
+
+
+Table altered.
+
+
+                 MEMBER  MEMBER COMMON                                          
+ MEMBER  MEMBER    TYPE  LOOKUP LOOKUP                                          
+     ID   QTY #    ID #    ID # TYPE                                            
+------- ------- ------- ------- ------------                                    
+   1001       2    1004    1004 GROUP                                           
+   1002       2    1004    1004 GROUP                                           
+   1003       3    1004    1004 GROUP                                           
+
+3 rows selected.
+
+
+Procedure created.
+
+No errors.
+c5                                                                              
+
+PL/SQL procedure successfully completed.
+
+c5                                                                              
+
+PL/SQL procedure successfully completed.
+
+c5                                                                              
+
+PL/SQL procedure successfully completed.
+
+c5                                                                              
+
+PL/SQL procedure successfully completed.
+
+c5                                                                              
+
+PL/SQL procedure successfully completed.
+
+
+                 MEMBER  MEMBER COMMON                                          
+ MEMBER  MEMBER    TYPE  LOOKUP LOOKUP                                          
+     ID   QTY #    ID #    ID # TYPE                                            
+------- ------- ------- ------- ------------                                    
+   1001       2    1004    1004 GROUP                                           
+   1002       2    1004    1004 GROUP                                           
+   1003       3    1004    1004 GROUP                                           
+   1004       1    1003    1003 INDIVIDUAL                                      
+   1005       1    1003    1003 INDIVIDUAL                                      
+   1006       1    1003    1003 INDIVIDUAL                                      
+   1007       1    1003    1003 INDIVIDUAL                                      
+   1008       1    1003    1003 INDIVIDUAL                                      
+
+8 rows selected.
+
+
+View created.
+
+
+FULL_NAME        TITLE                          PRODUCT      CHECK_OUT_DATE     
+---------------- ------------------------------ ------------ ------------------ 
+RETURN_DATE                                                                     
+------------------                                                              
+Brian Winn       RoboCop                        XBO          19-SEP-14          
+24-SEP-14                                                                       
+                                                                                
+Brian Winn       The Hunt for Red October       DVD          19-SEP-14          
+24-SEP-14                                                                       
+                                                                                
+Doreen Vizquel   Camelot                        Blu          19-SEP-14          
+24-SEP-14                                                                       
+                                                                                
+Doreen Vizquel   I Remember Mama                Blu          19-SEP-14          
+24-SEP-14                                                                       
+                                                                                
+Oscar Vizquel    Star Wars I                    DVD          19-SEP-14          
+24-SEP-14                                                                       
+                                                                                
+Oscar Vizquel    Star Wars II                   DVD          19-SEP-14          
+24-SEP-14                                                                       
+                                                                                
+Oscar Vizquel    Star Wars III                  DVD          19-SEP-14          
+24-SEP-14                                                                       
+                                                                                
+Ian M Sweeney    Cars                           XBO          19-SEP-14          
+24-SEP-14                                                                       
+                                                                                
+Meaghan Sweeney  Hook                           Blu          19-SEP-14          
+24-SEP-14                                                                       
+                                                                                
+
+9 rows selected.
+
